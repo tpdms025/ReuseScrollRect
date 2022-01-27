@@ -77,7 +77,10 @@ namespace ReuseScroll
         {
             m_ReuseBank.SetListData(ListData);
             if (Update)
+            {
+                m_ScrollRect.ClearCells();
                 UpdateAllCellData();
+            }
         }
         public void RemoveItem(IReuseCellData ListData, bool Update = false)
         {
@@ -136,7 +139,8 @@ namespace ReuseScroll
             else
                 TempContent.Sort((x, y) => -x.index.CompareTo(y.index));
 
-            //m_ScrollRect.ClearCells();
+
+            m_ScrollRect.ClearCells();
             UpdateAllCellData();
         }
 

@@ -54,6 +54,7 @@ namespace Demo
             m_grid.AddItem(cell,true);
         }
 
+        //현재 버그있음.
         private void OnButtonSetDataClick()
         {
             List<DemoCellData> contents = new List<DemoCellData>{
@@ -61,8 +62,13 @@ namespace Demo
             };
 
             //Casting
-            List<IReuseCellData> list = new List<DemoCellData>().ConvertAll(x=>(IReuseCellData)x);
-            m_grid.SetItem(list);
+            //List<IReuseCellData> list = new List<DemoCellData>().ConvertAll(x=>(IReuseCellData)x);
+            List<IReuseCellData> list = new List<IReuseCellData>(); 
+            foreach(DemoCellData cell in contents)
+            {
+                list.Add(cell);
+            }
+            m_grid.SetItem(list,true);
         }
 
         private void OnButtonDelDataClick()
