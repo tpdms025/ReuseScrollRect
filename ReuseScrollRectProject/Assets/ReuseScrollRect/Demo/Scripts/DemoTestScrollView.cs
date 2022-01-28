@@ -30,7 +30,7 @@ namespace Demo
                 grid.AddItem(cell);
             }
 
-            grid.UpdateAllCellData();
+            grid.RefreshAllCell();
         }
 
         /// <summary>

@@ -65,34 +65,31 @@ namespace ReuseScroll
 
             m_ReuseBank.AddCellData(cellData);
             if (Update)
-                UpdateAllCellData();
+                RefreshAllCell();
         }
         public void InsertItem(int idx, IReuseCellData cellData, bool Update = false)
         {
             m_ReuseBank.InsertCellData(idx, cellData);
             if (Update)
-                UpdateAllCellData();
+                RefreshAllCell();
         }
         public void SetItem(List<IReuseCellData> ListData, bool Update = false)
         {
             m_ReuseBank.SetListData(ListData);
             if (Update)
-            {
-                m_ScrollRect.ClearCells();
-                UpdateAllCellData();
-            }
+                RefillAllCell();
         }
         public void RemoveItem(IReuseCellData ListData, bool Update = false)
         {
-            if (ListData == null)
-                return;
+            //if (ListData == null)
+            //    return;
 
-            m_ReuseBank.DeleteCellData(ListData);
-            if (Update)
-            {
-                m_ScrollRect.ClearCells();
-                UpdateAllCellData();
-            }
+            //m_ReuseBank.DeleteCellData(ListData);
+            //if (Update)
+            //{
+            //    m_ScrollRect.ClearCells();
+            //    RefillAllCell();
+            //}
         }
         public void RemoveFirstItem()
         {
@@ -119,15 +116,27 @@ namespace ReuseScroll
             if (Update)
             {
                 m_ScrollRect.ClearCells();
-                UpdateAllCellData();
+                RefreshAllCell();
             }
         }
         #endregion
 
-        public void UpdateAllCellData()
+        /// <summary>
+        /// 모든 셀 데이터를 갱신한다.
+        /// </summary>
+        public void RefreshAllCell()
         {
             m_ScrollRect.totalCount = m_ReuseBank.GetListDataLength();
             m_ScrollRect.RefreshCells();
+        }
+
+        /// <summary>
+        /// 모든 셀 데이터를 교체한다.
+        /// </summary>
+        public void RefillAllCell()
+        {
+            m_ScrollRect.totalCount = m_ReuseBank.GetListDataLength();
+            m_ScrollRect.RefillCells();
         }
 
         public void SortCellData_IndexOrder(bool isReverse = false)
@@ -135,13 +144,13 @@ namespace ReuseScroll
             // 람다식으로 정렬 구현
             var TempContent = m_ReuseBank.GetListData();
             if(!isReverse)
-                TempContent.Sort((x, y) => x.index.CompareTo(y.index));
+                TempContent.Sort((x, y) => x.name.CompareTo(y.name));
             else
-                TempContent.Sort((x, y) => -x.index.CompareTo(y.index));
+                TempContent.Sort((x, y) => -x.name.CompareTo(y.name));
 
 
             m_ScrollRect.ClearCells();
-            UpdateAllCellData();
+            RefillAllCell();
         }
 
         public void SrollToCell(int targetIndx, int moveSpeed = -1)
@@ -149,7 +158,10 @@ namespace ReuseScroll
             m_ScrollRect.SrollToCell(targetIndx, moveSpeed);
         }
 
-
+        public void SrollToCellWithinTime(int targetIndx, float time = 0.5f)
+        {
+            m_ScrollRect.SrollToCellWithinTime(targetIndx, time);
+        }
 
 
         #region interface Method
