@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,7 +59,7 @@ public class ReuseBankBase
     /// <returns></returns>
     public bool IsInit()
     {
-        return m_listData != null ? true : false;  
+        return m_listData != null ? true : false;
     }
 
     public void AddCellData(IReuseCellData newData)
@@ -70,7 +69,7 @@ public class ReuseBankBase
 
     public void InsertCellData(int index, IReuseCellData newData)
     {
-        m_listData.Insert(index,newData);
+        m_listData.Insert(index, newData);
     }
 
     public void DelCellDataByIndex(int index)
